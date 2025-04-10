@@ -1,0 +1,51 @@
+body {
+    margin: 0;
+    background-color: #ccc;
+    font-family: 'Segoe UI', 'Roboto', sans-serif;
+    color: white;
+  }
+  
+  .ant-layout-header {
+    background-color: #14213d !important;
+    padding: 16px 24px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .ant-card {
+    background-color: #fafafa !important;
+    color: white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 16px;
+    border: none;
+  }
+  
+  .ant-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 12px #fca31155;
+  }
+  
+  .ant-btn-primary {
+    background-color: #fca311;
+    border-color: #fca311;
+  }
+  
+  .ant-btn-primary:hover {
+    background-color: #ffb933;
+    border-color: #ffb933;
+  }
+  
+  .ant-pagination .ant-pagination-item {
+    background-color: #fafafa;
+    border-color: #fca311;
+    color: white;
+  }
+  
+  .ant-pagination-item-active {
+    background-color: #fca311 !important;
+    border-color: #fca311 !important;
+    color: black !important;
+  }
+  
