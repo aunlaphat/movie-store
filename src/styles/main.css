@@ -1,51 +1,283 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;700&family=Roboto:wght@400;700&display=swap');
+
 body {
-    margin: 0;
-    background-color: #ccc;
-    font-family: 'Segoe UI', 'Roboto', sans-serif;
-    color: white;
-  }
+  margin: 0;
+  background-color: #ccc;
+  font-family: 'Noto Sans Thai', 'Roboto', sans-serif !important;
+  color: white;
+}
   
   .ant-layout-header {
-    background-color: #14213d !important;
+    background: linear-gradient(to right, #000000, #1f0000, #660000);
     padding: 16px 24px;
-    color: white;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #ff1e1e;
+  }
+  
+  .navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  
+  .navbar-title {
+    font-size: 28px;
+    color: #f1f5f9;
+    font-weight: bold;
+  }
+  
+  .ant-menu-horizontal {
+    background-color: transparent !important;
+    border-bottom: none;
+  }
+  
+  .ant-menu-item {
+    color: #f1f5f9 !important;
+    font-weight: 500;
+  }
+  
+  .ant-menu-item-selected {
+    background-color: #ffffff !important;  /* พื้นหลังขาว */
+    color: #000000 !important;             /* ตัวหนังสือดำ */
+  }
+  
+  .navbar-center {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .ant-input-search {
+    max-width: 400px;
+    width: 100%;
+  }
+  
+  .navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .ant-badge-count {
+    background-color: #ff1e1e;
+    color: white;
   }
   
   .ant-card {
-    background-color: #fafafa !important;
+    background-color: #1a1a1a;
     color: white;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border-radius: 16px;
-    border: none;
+    border-radius: 12px;
+    border: 1px solid #2d2d2d;
+    transition: all 0.3s ease;
   }
   
   .ant-card:hover {
-    transform: scale(1.03);
-    box-shadow: 0 0 12px #fca31155;
+    box-shadow: 0 0 12px #ff1e1e88;
+    transform: scale(1.02);
   }
   
   .ant-btn-primary {
-    background-color: #fca311;
-    border-color: #fca311;
+    background-color: #ff1e1e;
+    border-color: #ff1e1e;
   }
   
   .ant-btn-primary:hover {
-    background-color: #ffb933;
-    border-color: #ffb933;
+    background-color: #ff4d4d;
+    border-color: #ff4d4d;
   }
   
-  .ant-pagination .ant-pagination-item {
-    background-color: #fafafa;
-    border-color: #fca311;
+  .ant-drawer .ant-drawer-header {
+    background-color: #1f0000;
     color: white;
   }
   
-  .ant-pagination-item-active {
-    background-color: #fca311 !important;
-    border-color: #fca311 !important;
-    color: black !important;
+  .ant-drawer-title {
+    color: white;
+  }
+  
+  .ant-modal-title {
+    color: #ff1e1e;
+  }
+  
+  .ant-upload-text {
+    color: #f1f5f9;
+  }
+
+  .ant-drawer-title {
+    font-family: 'Noto Sans Thai', 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #e50914;
+  }
+  
+  .ant-layout-header {
+    background: linear-gradient(to right, #1a0000, #4d0000);
+    padding: 16px 24px;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .ant-card {
+    background-color: #111 !important;
+    color: white;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .ant-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 12px rgba(255, 0, 0, 0.3);
+  }
+
+  /* .movie-hover-card {
+    width: 270;
+    flexShrink: 0;
+    backgroundColor: '#000';
+    border: 'none';
+    color: 'white';
+    display: 'flex';
+    flexDirection: 'column';
+    justifyContent: 'space-between';
+    height: 600;
+  } */
+  
+  .movie-hover-card .ant-card-cover {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .movie-hover-card .ant-card-cover:hover::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+  }
+  
+  .movie-hover-card .movie-hover-info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 12px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .movie-hover-card:hover .movie-hover-info {
+    opacity: 1;
+  }
+  
+  .movie-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    line-height: 1.4;
+    word-break: break-word;
+    margin-bottom: 4px;
+  }
+  
+  .movie-lang {
+    font-size: 13px;
+    color: #aaa;
+    margin-top: 4px;
+  }
+  
+  .movie-price {
+    color: #facc15;
+    font-weight: 500;
+    margin: 6px 0 2px;
+  }
+  
+  .movie-button {
+    background-color: #e50914;
+    border-color: #e50914;
+    color: white;
+  }
+  
+  .movie-button:hover {
+    background-color: #ff3333;
+    border-color: #ff3333;
+  }
+  
+  .ant-btn-primary {
+    background-color: #e50914;
+    border-color: #e50914;
+    font-weight: bold;
+  }
+  
+  .ant-btn-primary:hover {
+    background-color: #ff3333;
+    border-color: #ff3333;
+  }
+
+  .movie-cover-container:hover .movie-hover-overlay {
+    opacity: 1;
+  }
+  
+  .movie-cover-container {
+    position: relative;
+    overflow: hidden;
+    height: 380px;
+  }
+  
+  .movie-hover-overlay {
+    position: 'absolute';
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    background: rgba(10, 10, 10, 0.85);
+    color: rgba(255, 255, 255, 0.7); 
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 240px; 
+  }  
+
+  .movie-hover-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: white; /* ชื่อหนังยังเข้ม */
+    margin-bottom: 10px;
+  }
+  
+  .movie-hover-details {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6); 
+    line-height: 1.4;
+  }
+  
+  .movie-hover-details p {
+    margin: 4px 0;
+  }
+
+  .meta-title {
+    white-space: normal;
+    word-break: break-word;
+    font-size: 16px;
+    display: block;
+    color: white;
+    font-weight: 500;
+    min-height: 48px;
   }
   
