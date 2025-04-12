@@ -32,10 +32,7 @@ const MoviePage = () => {
           gap: 0,
         }}
       >
-        {/* ชื่อเรื่อง */}
         <h1 style={{ color: '#ccc', fontSize: 32, fontWeight: 'bold' }}>{movie.title}</h1>
-
-        {/* รูป + รายละเอียด */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
           <img
             src={`https://image.tmdb.org/t/p/w780${movie.backdrop_path}`}
@@ -47,7 +44,6 @@ const MoviePage = () => {
               objectFit: 'cover',
             }}
           />
-
           <div style={{ fontSize: 16, lineHeight: 1.8, color: '#ccc' }}>
             <p style={{ marginBottom: 16 }}>{movie.overview}</p>
             <p>

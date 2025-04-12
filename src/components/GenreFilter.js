@@ -4,7 +4,7 @@ import { Select } from 'antd';
 const GenreFilter = ({ genres, onChange }) => (
   <Select
     placeholder="เลือกหมวดหมู่"
-    style={{ width: 200, marginBottom: 20 }}
+    style={{ width: 150, marginBottom: 0, color: 'black',  }}
     onChange={onChange}
     allowClear
   >

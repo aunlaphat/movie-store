@@ -1,57 +1,73 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Layout, Badge, Button, Drawer, Menu } from 'antd';
-import { ShoppingCartOutlined, UserOutlined, HistoryOutlined } from '@ant-design/icons';
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Layout, Badge, Button, Drawer, Menu, Dropdown } from 'antd';
+import { ShoppingCartOutlined, UserOutlined, HistoryOutlined, LogoutOutlined } from '@ant-design/icons';
 import CartModal from './CartModal';
 import OrderHistory from './OrderHistory';
 
 const { Header } = Layout;
 
-const Navbar = ({ onSearch, cartItems, onLoginClick, onClearCart, onCheckout, purchaseHistory }) => {
-  const [cartOpen, setCartOpen] = useState(false);
-  const [historyOpen, setHistoryOpen] = useState(false);
+const Navbar = ({ cartItems, onSearch, onLoginClick, onClearCart, onCheckout, purchaseHistory, user, onLogout }) => {
+  const [cartOpen, setCartOpen] = React.useState(false);
+  const [historyOpen, setHistoryOpen] = React.useState(false);
+  const location = useLocation();
+  const selectedKey = location.pathname === '/movies' ? 'movies' : 'home';
+
+  const userMenuItems = [
+    {
+      key: 'logout',
+      label: 'ออกจากระบบ',
+      icon: <LogoutOutlined />,
+      onClick: onLogout,
+    },
+  ];
 
   return (
     <Header style={{ backgroundColor: '#000', display: 'flex', alignItems: 'center', padding: '0 24px', gap: 20 }}>
       <div className="navbar-title">🎬 MOVIE STORE</div>
-
       <Menu
         theme="dark"
         mode="horizontal"
-        defaultSelectedKeys={['home']}
-        style={{
-          backgroundColor: 'transparent',
-          flex: 1,
-          justifyContent: 'left',
-          borderBottom: 'none',
-        }}
-      >
-        <Menu.Item key="home" style={{ color: 'white' }}>
-          <Link to="/" style={{ color: 'inherit' }}>หน้าแรก</Link>
-        </Menu.Item>
-        <Menu.Item key="movies" style={{ color: 'white' }}>
-          <Link to="/movies" style={{ color: 'inherit' }}>ภาพยนตร์</Link>
-        </Menu.Item>
-      </Menu>
-
+        selectedKeys={[selectedKey]}
+        style={{ backgroundColor: 'transparent', flex: 1, justifyContent: 'left', borderBottom: 'none' }}
+        items={[
+          {
+            key: 'home',
+            label: <Link to="/">หน้าแรก</Link>,
+          },
+          {
+            key: 'movies',
+            label: <Link to="/movies">ภาพยนตร์</Link>,
+          },
+        ]}
+      />
       <Badge count={cartItems.length} offset={[-5, 5]}>
         <ShoppingCartOutlined
-          style={{ fontSize: 30, color: '#ccc', cursor: 'pointer' }}
+          style={{ fontSize: 28, color: '#ccc', cursor: 'pointer' }}
           onClick={() => setCartOpen(true)}
         />
       </Badge>
-
       <HistoryOutlined
-        style={{ fontSize: 25, color: '#ccc', cursor: 'pointer', marginLeft: 0 }}
+        style={{ fontSize: 24, color: '#ccc', cursor: 'pointer', marginLeft: 0 }}
         onClick={() => setHistoryOpen(true)}
       />
+      {user ? (
+        <div style={{ marginLeft: 10 }}>
+          <Dropdown menu={{ items: userMenuItems }} placement="bottomRight">
+            <Button icon={<UserOutlined />}>
+              {user.username}
+            </Button>
+          </Dropdown>
+        </div>
+      ) : (
+        <Button onClick={onLoginClick} style={{ marginLeft: 10 }}>
+          เข้าสู่ระบบ / สมัครสมาชิก
+        </Button>
+      )}
 
-      <Button icon={<UserOutlined />} onClick={onLoginClick} style={{ marginLeft: 10 }}>
-        เข้าสู่ระบบ
-      </Button>
 
       <Drawer
-        title="📽️ ประวัติการสั่งซื้อ"
+        title="📝 ประวัติการสั่งซื้อ"
         placement="right"
         onClose={() => setHistoryOpen(false)}
         open={historyOpen}
@@ -59,7 +75,6 @@ const Navbar = ({ onSearch, cartItems, onLoginClick, onClearCart, onCheckout, pu
       >
         <OrderHistory orders={purchaseHistory} />
       </Drawer>
-
       <Drawer
         title="🛒 ตะกร้าสินค้า"
         placement="right"

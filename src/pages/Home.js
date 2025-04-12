@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { searchMovies, getGenres } from '../api/api';
 import MovieRow from '../components/MovieRow';
-import GenreFilter from '../components/GenreFilter'; 
 
-const Home = ({ cartItems, setCartItems }) => {
+const Home = ({ user, cartItems, setCartItems, purchaseHistory }) => {
   const [movies, setMovies] = useState([]);
   const [genres, setGenres] = useState([]);
   const [filterGenre, setFilterGenre] = useState(null);
@@ -49,14 +48,27 @@ const Home = ({ cartItems, setCartItems }) => {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'flex-start',
-        paddingTop: 20,
+        paddingTop: 10,
         paddingBottom: 80 
       }}>
-      <MovieRow title="🎯 ภาพยนตร์แนะนำ" movies={topRated} addToCart={(m) => setCartItems([...cartItems, m])} variant="highlight"/>
-      
-      <h2 style={{ color: '#facc15', padding: '0 24px', marginTop: 0 }}>📚 ภาพยนตร์ทั้งหมด</h2>
+      <MovieRow title="📽️ ภาพยนตร์แนะนำ" 
+        movies={topRated} 
+        variant="highlight" 
+        user={user}
+        cartItems={cartItems}
+  purchaseHistory={purchaseHistory}
+        addToCart={(m) => {
+          const latestPrices = JSON.parse(localStorage.getItem('movie_prices') || '{}');
+          setCartItems([...cartItems, { ...m, price: latestPrices[m.id] ?? m.price ?? 99 }]);
+        }}
+      />
+      <h2 style={{ color: '#facc15', padding: '0 24px', marginBottom: 5 }}>📽️ ภาพยนตร์ทั้งหมด</h2>
       {groupMovies(filteredMovies).map((group, idx) => (
-        <MovieRow key={idx} title={null} movies={group} addToCart={(m) => setCartItems([...cartItems, m])} />
+        <MovieRow key={idx} title={null} movies={group} cartItems={cartItems}
+        purchaseHistory={purchaseHistory} addToCart={(m) => {
+          const latestPrices = JSON.parse(localStorage.getItem('movie_prices') || '{}');
+          setCartItems([...cartItems, { ...m, price: latestPrices[m.id] ?? m.price ?? 99 }]);
+        }} user={user}/>
       ))}
     </div>
   );

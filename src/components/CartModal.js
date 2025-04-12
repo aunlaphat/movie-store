@@ -1,40 +1,52 @@
 import React from 'react';
-import { List, Button, Divider, message } from 'antd';
+import { List, Button, Divider } from 'antd';
 
-function CartModal({ cartItems, clearCart, onCheckout }) {
-  const getTotal = () => {
-    const base = cartItems.reduce((acc, item) => acc + (item.price || 99), 0);
-    if (cartItems.length > 5) return base * 0.8;
-    if (cartItems.length > 3) return base * 0.9;
-    return base;
+function CartModal({ cartItems, onCheckout, clearCart }) {
+  const getDiscountRate = () => {
+    if (cartItems.length > 5) return 0.2;
+    if (cartItems.length > 3) return 0.1;
+    return 0;
   };
 
-  const handleCheckout = () => {
-    message.success('📦 การชำระเงินเสร็จสมบูรณ์!');
-    onCheckout();
-    clearCart();
-  };
+  const totalPrice = cartItems.reduce((sum, item) => sum + (item.price ?? 99), 0);
+  const discountRate = getDiscountRate();
+  const discountAmount = totalPrice * discountRate;
+  const finalPrice = totalPrice - discountAmount;
 
   return (
     <div>
       <List
         dataSource={cartItems}
         locale={{ emptyText: 'ยังไม่มีรายการสินค้าในตะกร้า' }}
-        renderItem={(item) => (
+        renderItem={(item, index) => (
           <List.Item style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <span>{item.title}</span>
-            <span>฿{item.price || 99}</span>
+            <span>
+              <b>{index + 1}.</b> {item.title}
+            </span>
+            <span>฿{item.price ?? 99}</span>
           </List.Item>
         )}
       />
       <Divider />
-      <p>รวมทั้งหมด: ฿{getTotal().toFixed(2)}</p>
-      <Button type="primary" onClick={handleCheckout} block>
-        ✅ ชำระเงิน
-      </Button>
-      <Button danger onClick={clearCart} block style={{ marginTop: 10 }}>
-        ล้างตะกร้า
-      </Button>
+      <div>
+        <div style={{ textAlign: 'center', fontWeight: 'bold',marginTop: 0}}>
+          <p>🎉 โปรโมชั่น 🎉</p>
+          <p>ซื้อครบ 4 เรื่องขึ้นไปลด 10% 🎈</p>
+          <p>ซื้อครบ 6 เรื่องขึ้นไปลด 20% 🎈</p>
+        </div>
+        <p>รวม: ฿{totalPrice.toFixed(2)}</p>
+        {discountRate > 0 && <p>ส่วนลด: -฿{discountAmount.toFixed(2)}</p>}
+        <h3>ยอดชำระ: ฿{finalPrice.toFixed(2)}</h3>
+
+        {cartItems.length > 0 && (
+          <Button type="primary" style={{ marginBottom: 5 }}onClick={onCheckout} block>
+            ดำเนินการชำระเงิน
+          </Button>
+        )}
+        <Button danger onClick={clearCart} block>
+          ล้างตะกร้า
+        </Button>
+      </div>
     </div>
   );
 }
