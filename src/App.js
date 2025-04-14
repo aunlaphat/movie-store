@@ -74,7 +74,7 @@ function App() {
         onConfirm={() => {
           if (cartItems.length === 0) return;
           const timestamp = new Date().toISOString();
-          const currentCart = [...cartItems]; // ✅ สำเนาไว้ก่อนล้าง
+          const currentCart = [...cartItems];
           setCartItems([]);
           setShowCheckout(false);
           setPurchaseHistory([...purchaseHistory, { timestamp, items: currentCart }]);

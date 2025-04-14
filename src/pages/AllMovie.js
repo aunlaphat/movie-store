@@ -109,7 +109,7 @@ const AllMovie = ({ cartItems, setCartItems, purchaseHistory }) => {
             title={null}
             movies={group}
             cartItems={cartItems}
-  purchaseHistory={purchaseHistory}
+            purchaseHistory={purchaseHistory}
             addToCart={(m) => {
               const latestPrices = JSON.parse(localStorage.getItem('movie_prices') || '{}');
               setCartItems([...cartItems, { ...m, price: latestPrices[m.id] ?? m.price ?? 99 }]);
@@ -117,8 +117,7 @@ const AllMovie = ({ cartItems, setCartItems, purchaseHistory }) => {
             user={user}
         />
       ))}
-
-      {/* ✅ Pagination */}
+      
       <div
         style={{
           display: 'flex',

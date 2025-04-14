@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Modal, Upload, Button, App as AntdApp} from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
+
 const { Dragger } = Upload;
 
 function CheckoutModal({ visible, onClose, onConfirm }) {
@@ -25,7 +26,6 @@ function CheckoutModal({ visible, onClose, onConfirm }) {
         if (prev === 1) {
           clearInterval(interval);
     
-          // ⛔ แก้ลำดับตรงนี้
           if (fileListRef.current.length === 0 && !notifiedRef.current) {
             notification.error({
               message: 'หมดเวลาการชำระเงิน',
@@ -35,7 +35,7 @@ function CheckoutModal({ visible, onClose, onConfirm }) {
             notifiedRef.current = true;
           }
     
-          onClose(); // ย้ายมาหลัง notification
+          onClose(); 
           return 0;
         }
         return prev - 1;

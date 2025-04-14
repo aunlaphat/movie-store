@@ -56,7 +56,7 @@ const Home = ({ user, cartItems, setCartItems, purchaseHistory }) => {
         variant="highlight" 
         user={user}
         cartItems={cartItems}
-  purchaseHistory={purchaseHistory}
+        purchaseHistory={purchaseHistory}
         addToCart={(m) => {
           const latestPrices = JSON.parse(localStorage.getItem('movie_prices') || '{}');
           setCartItems([...cartItems, { ...m, price: latestPrices[m.id] ?? m.price ?? 99 }]);

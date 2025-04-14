@@ -17,11 +17,11 @@ const OrderHistory = ({ orders }) => {
             dataSource={order.items}
             renderItem={(item, i) => (
               <List.Item>
-              <List.Item.Meta
-                title={<span><b>{i + 1}.</b> {item.title}</span>}
-                description={`ราคา: ฿${item.price || 99}`}
-              />
-            </List.Item>
+                <List.Item.Meta
+                  title={<span><b>{i + 1}.</b> {item.title}</span>}
+                  description={`ราคา: ฿${item.price || 99}`}
+                />
+              </List.Item>
             )}
           />
         </div>
